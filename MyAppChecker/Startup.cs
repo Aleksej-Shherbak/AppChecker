@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyAppChecker.Infrastructure;
 using MyAppChecker.Services;
@@ -39,7 +40,8 @@ namespace MyAppChecker
                 _logger.LogWarning("Невозможно получить URL прокси. Ананимный парсинг невозможен.");
             }
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllers().AddNewtonsoftJson(); 
+            
            // services.AddHostedService<SchedulerService>();
             services.AddHostedService<MyWorker>();
             services.AddSingleton<IMyQueue, MyQueue>();
@@ -64,7 +66,7 @@ namespace MyAppChecker
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -76,8 +78,9 @@ namespace MyAppChecker
                 // app.UseHsts();
             }
 
-            //  app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseRouting();
+            
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

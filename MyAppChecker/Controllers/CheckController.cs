@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MyAppChecker.Infrastructure;
 using MyAppChecker.Request;
 using MyAppChecker.Services.Jobs;
 using MyAppChecker.Services.Queue;
 
 namespace MyAppChecker.Controllers
 {
-    [ApiController]
+    [DisplayNameValidationFilter]
     public class CheckController : ControllerBase
     {
         private readonly IRevisionJob _revisionJob;
