@@ -22,6 +22,11 @@ namespace MyAppChecker.Services.CheckApp
 
         public async Task<List<CheckPackageResponse>> CheckAsync(List<string> appIds)
         {
+            if (!appIds.Any())
+            {
+                return new List<CheckPackageResponse>();
+            }
+
             _client.DefaultRequestHeaders.UserAgent.ParseAdd(
                 "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36");
 

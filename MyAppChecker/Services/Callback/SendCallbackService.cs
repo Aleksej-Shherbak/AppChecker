@@ -14,10 +14,10 @@ namespace MyAppChecker.Services.Callback
     {
         private readonly HttpClient _client;
         readonly ILogger<SendCallbackService> _log;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
         public SendCallbackService(HttpClient client, ILogger<SendCallbackService> log,
-            IHostingEnvironment hostingEnvironment)
+            IWebHostEnvironment hostingEnvironment)
         {
             _client = client;
             _log = log;
